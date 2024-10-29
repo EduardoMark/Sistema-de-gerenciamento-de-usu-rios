@@ -3,10 +3,13 @@
     const express = require('express');
     const  sequelize  = require('../src/config/database');
     const User = require('./models/userModel');
+    const router = require('./routes/userRoutes');
     
     const app = express();
 
     app.use(express.json());
+
+    app.use(router);
 
     try {
         await sequelize.sync();
