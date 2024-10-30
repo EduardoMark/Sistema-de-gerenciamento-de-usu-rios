@@ -90,6 +90,28 @@ const userController = {
             console.error(error.message);
             return res.status(500).json({ error: "Error ao atualizar usuário." });
         }
+    },
+    // DELETE /users/:id
+    async delete(req, res) {
+        try {
+            const { id } = req.params;
+
+            if (!validator.isUUID(id)) return res.status(400).json({ error: "Formato do ID inválido" });
+
+            const user = await User.findByPk(id);
+            if (!user) {
+                return res.status(404).json({ error: "Usuário não encontrado." });
+            }
+
+            await User.destroy({
+                where: { id }
+            })
+
+            return res.status(200).json({ message: "Usuário excluído com sucesso." });
+        } catch (error) {
+            console.error(error.message);
+            return res.json({ error: "Não foi possível excluir o usuário" });
+        }
     }
 }
 
