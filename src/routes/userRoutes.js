@@ -1,12 +1,13 @@
 const express = require('express');
 const userController = require('../controllers/userController');
+const authController = require('../controllers/authController');
 
 const router = express.Router();
 
 router.get('/', userController.index);
 router.get('/users/:id', userController.show);
 
-router.post('/users', userController.register);
+router.post('/users', authController.register);
 
 router.put('/users/:id', userController.update);
 
