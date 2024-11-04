@@ -4,13 +4,12 @@ const authController = require('../controllers/authController');
 
 const router = express.Router();
 
-router.get('/', userController.index);
-router.get('/users/:id', userController.show);
-
-router.post('/users', authController.register);
-
-router.put('/users/:id', userController.update);
-
-router.delete('/users/:id', userController.delete);
+// Users
+router.post('/users/register', authController.registerUser);
+// router.post('/users/login', authController.loginUser);
+router.get('/users', userController.getAllUsers);
+router.get('/users/:id', userController.getUserById);
+router.put('/users/:id', userController.updateUser);
+router.delete('/users/:id', userController.deleteUser);
 
 module.exports = router;
