@@ -49,7 +49,7 @@ const authController = {
         try {
             const user = await User.findOne({
                 where: { email: email },
-                attributes: ['email', 'password']
+                attributes: ['email', 'password', 'role']
             })
 
             if (!user) return res.status(401).json({ error: "Credenciais inválidas" });
@@ -58,7 +58,7 @@ const authController = {
             const comparePassword = await compareHash(password, user.dataValues.password);
             if (!comparePassword) return res.status(401).json({ error: "Credenciais inválidas" });
 
-            const payload = { email }; // conteúdo do token
+            const payload = { email, role: user.role }; // conteúdo do token
             const secretKey = process.env.JWT_SECRET; // chave secreta do jwt
             // gera um token jwt
             const token = jwt.sign(payload, secretKey, { expiresIn: '1h' }); 

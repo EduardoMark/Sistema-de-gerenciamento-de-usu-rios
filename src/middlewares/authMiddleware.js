@@ -19,4 +19,13 @@ function authenticateToken(req, res, next) {
     });
 }
 
-module.exports = authenticateToken;
+function checkRole(requiredRole) {
+    return (req, res, next) => {
+        if (req.user.role !== requiredRole) {
+            return res.status(403).json({ message: `Acesso restrito a usuários com função: ${requiredRole}` });
+        }
+        next();
+    };
+}
+
+module.exports = {authenticateToken, checkRole};
