@@ -12,4 +12,14 @@ async function hashPassword(password) {
     }
 }
 
-module.exports = hashPassword;
+async function compareHash(password, hashedPassword) {
+    try {
+        const comperaPassword = await bcrypt.compare(password, hashedPassword);
+        return comperaPassword;
+    } catch (error) {
+        console.error(`Error ao tentar comparar o hash da senha: ${error.message}`);
+        throw new Error("Falha no compare");  
+    }
+}
+
+module.exports = {hashPassword, compareHash};
