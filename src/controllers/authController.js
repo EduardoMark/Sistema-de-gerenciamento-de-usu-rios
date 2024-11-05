@@ -54,13 +54,14 @@ const authController = {
 
             if (!user) return res.status(401).json({ error: "Credenciais inválidas" });
 
+            // compara se a senha informado é igual a cadastrada
             const comparePassword = await compareHash(password, user.dataValues.password);
             if (!comparePassword) return res.status(401).json({ error: "Credenciais inválidas" });
 
-            const payload = { email };
-            const secretKey = process.env.JWT_SECRET;
-
-            const token = jwt.sign(payload, secretKey, { expiresIn: '1h' });
+            const payload = { email }; // conteúdo do token
+            const secretKey = process.env.JWT_SECRET; // chave secreta do jwt
+            // gera um token jwt
+            const token = jwt.sign(payload, secretKey, { expiresIn: '1h' }); 
             
             return res.status(200).json({ token });
         } catch (error) {

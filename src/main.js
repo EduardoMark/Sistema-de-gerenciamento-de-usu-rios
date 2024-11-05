@@ -11,6 +11,7 @@
 
     app.use('/api', router);
 
+    // tenta se conectar com o banco de dados
     try {
         await sequelize.sync();
         console.log(`Banco de dados conectado com sucesso!`);

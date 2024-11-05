@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 
+// função para criptografar a senha
 async function hashPassword(password) {
     const saltRounds = 10;
 
@@ -12,6 +13,7 @@ async function hashPassword(password) {
     }
 }
 
+// função para comparar a senha e o hash
 async function compareHash(password, hashedPassword) {
     try {
         const comperaPassword = await bcrypt.compare(password, hashedPassword);

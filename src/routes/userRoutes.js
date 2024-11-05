@@ -6,9 +6,10 @@ const authenticateToken = require('../middlewares/authMiddleware');
 
 const router = express.Router();
 
-// Users
+// Auth
 router.post('/users/register', authController.registerUser);
 router.post('/users/login', authController.loginUser);
+// Routes protegidas
 router.get('/users', authenticateToken, userController.getAllUsers);
 router.get('/users/:id', authenticateToken, userController.getUserById);
 router.put('/users/:id', authenticateToken, userController.updateUser);
