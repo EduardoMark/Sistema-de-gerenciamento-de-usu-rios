@@ -1,6 +1,7 @@
+require('dotenv').config({ path: '../../.env' });
 const User = require('../models/userModel');
 const { hashPassword, compareHash } = require('../utils/hashPassword');
-const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const authController = {
     // POST /users
@@ -42,7 +43,7 @@ const authController = {
     },
     async loginUser(req, res) {
         const { email, password } = req.body;
-
+        
         if (!email || !password) return res.status(400).json({ error: "Todos os campos devem ser preencidos" });
 
         try {
@@ -56,7 +57,12 @@ const authController = {
             const comparePassword = await compareHash(password, user.dataValues.password);
             if (!comparePassword) return res.status(401).json({ error: "Credenciais inválidas" });
 
-            return res.status(200).json({ message: "Login efetuado com sucesso." });
+            const payload = { email };
+            const secretKey = process.env.JWT_SECRET;
+
+            const token = jwt.sign(payload, secretKey, { expiresIn: '1h' });
+            
+            return res.status(200).json({ token });
         } catch (error) {
             console.error(`Erro ao tentar efetuar login: ${error.message}`);
             return res.status(500).json({ error: `Erro ao tentar efetuar login:` });
