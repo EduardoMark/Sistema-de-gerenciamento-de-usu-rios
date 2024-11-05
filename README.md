@@ -8,9 +8,6 @@ Este é um projeto de backend para um sistema de gerenciamento de usuários, des
 - [Funcionalidades](#funcionalidades)
 - [Configuração e Instalação](#configuração-e-instalação)
 - [Uso](#uso)
-- [Documentação da API](#documentação-da-api)
-- [Contribuições](#contribuições)
-- [Licença](#licença)
 
 ## Descrição do Projeto
 
