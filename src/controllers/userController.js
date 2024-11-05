@@ -1,6 +1,6 @@
 const User = require('../models/userModel');
 const validator = require('validator');
-const hashPassword = require('../utils/hashPassword');
+const {hashPassword} = require('../utils/hashPassword');
 
 const userController = {
     // GET /users
